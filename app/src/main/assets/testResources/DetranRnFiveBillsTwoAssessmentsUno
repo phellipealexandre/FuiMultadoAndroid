@@ -1,0 +1,777 @@
+
+		<HTML>
+		<HEAD>
+			<title>DETRAN/RN - Consulta Consolidada de Veículo</title>
+			<link rel="stylesheet" type="text/css" href="/estilos/EstiloDetran.css">
+			<script language="javascript">
+			parent.superior.formu.placa.value='NNU7294';
+			parent.superior.formu.renavam.value='463309510';
+			</script>
+		</HEAD>
+		<BODY CLASS="Corpo" bgcolor="#F8F8F8">
+
+		<script language="javascript">
+			parent.document.all.frameabaixo.cols="0%,100%";
+		</script>
+
+		<DIV ALIGN="center">
+
+
+
+<script language="javascript">
+
+
+		function fecha(servico)
+			{
+			var i=0;
+			if (document.getElementById('div_'+servico).style.display=="")
+				{
+				document.getElementById('span_'+servico).style.color="#234578";
+				document.getElementById('div_'+servico).style.display="none";
+
+				//muda imagens
+				document.getElementById('img_'+servico).src = '/imagens/barra_esq_mais.gif';
+				document.getElementById('img4_'+servico).src = '/imagens/barra_dir_mais.gif';
+				// muda linhas
+				document.getElementById('td2_'+servico).style.borderTop='#3f658c 1px solid';
+				document.getElementById('td3_'+servico).style.borderTop='#3f658c 1px solid';
+
+				document.getElementById('td1_'+servico).style.borderBottom='#3f658c 0px';
+				document.getElementById('td2_'+servico).style.borderBottom='#3f658c 0px';
+				document.getElementById('td3_'+servico).style.borderBottom='#3f658c 0px';
+				document.getElementById('td4_'+servico).style.borderBottom='#3f658c 0px';
+
+				}
+			else
+				{
+				document.getElementById('span_'+servico).style.color="#BB390C";
+				document.getElementById('div_'+servico).style.display="";
+
+				document.getElementById('td1_'+servico).style.backgroundImage = 'url(/imagens/barra_esq_menos.gif)';
+				document.getElementById('td4_'+servico).style.backgroundImage = 'url(/imagens/barra_dir_menos.gif)';
+				document.getElementById('img_'+servico).src = '/imagens/barra_esq_menos_transp.gif';
+				document.getElementById('img4_'+servico).src = '/imagens/barra_dir_menos_transp.gif';
+
+				// muda linhas
+				document.getElementById('td2_'+servico).style.borderTop='#3f658c 2px solid';
+				document.getElementById('td3_'+servico).style.borderTop='#3f658c 2px solid';
+
+				document.getElementById('td1_'+servico).style.borderBottom='#999999 1px solid';
+				document.getElementById('td2_'+servico).style.borderBottom='#999999 1px solid';
+				document.getElementById('td3_'+servico).style.borderBottom='#999999 1px solid';
+				document.getElementById('td4_'+servico).style.borderBottom='#999999 1px solid';
+
+
+				}
+			}
+
+
+
+
+	function fecha1(nome,imagem)
+		{
+		var i=0;
+		if (document.all.tags("div")[nome].style.display=="")
+			{
+			document.all.tags("div")[nome].style.display="none";
+			document.all.tags("img")[imagem].src='/imagens/'+imagem+'_mais.gif';
+			document.all.tags("table")['tb_'+imagem].style.borderBottom='1px solid #999999';
+			}
+		else
+			{
+			document.all.tags("div")[nome].style.display="";
+			document.all.tags("img")[imagem].src='/imagens/'+imagem+'_menos.gif';
+			document.all.tags("table")['tb_'+imagem].style.borderBottom='0px solid #999999';
+			}
+		}
+</script>
+
+
+
+<STYLE>
+<!--
+	.bordaCompleta
+	{
+	BORDER-LEFT:#999999 1px solid;BORDER-TOP:#999999 1px solid;BORDER-BOTTOM:#999999 1px solid;BORDER-RIGHT:#999999 1px solid
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 7pt;
+    COLOR: #808080;
+    FONT-FAMILY: Tahoma;
+    TEXT-ALIGN: left
+	}
+	.bordaEsquerdaGrossa {border-left:#3f658c 2px solid}
+	.bordaEsquerdaFina {border-left:#999999 1px solid}
+	.bordaDireitaGrossa {border-right:#3f658c 2px solid; padding-left: 2px}
+	.bordaDireitaFina {border-right:#999999 1px solid;padding-left: 2px}
+	.bordaAbaixoGrossa {BORDER-BOTTOM:#cbd1d6 2px solid}
+	.bordaAbaixoFina {BORDER-BOTTOM:#999999 1px solid}
+	.bordaAcimaGrossa {BORDER-TOP:#3f658c 2px solid}
+	.bordaAcimaFina {BORDER-TOP:#3f658c 1px solid}
+
+	.bordaCabecalhoAcimaGrossa {BORDER-TOP:#3f658c 2px solid}
+	.bordaCabecalhoAcimaFina {BORDER-TOP:#3f658c 1px solid}
+	.bordaCabecalhoAbaixoGrossa {BORDER-BOTTOM:#999999 1px solid}
+	.bordaCabecalhoAbaixoFina {BORDER-BOTTOM:#3f658c 1px solid}
+
+	.bordaAbaixoDireita {BORDER-LEFT:#999999 1px solid;BORDER-BOTTOM:#999999 1px solid}
+	.bordaAbaixoEsquerda {BORDER-LEFT:#999999 1px solid;BORDER-BOTTOM:#999999 1px solid}
+	.bordaAbaixoEsquerdaDireita {BORDER-LEFT:#999999 1pt solid;BORDER-BOTTOM:#999999 1pt solid;BORDER-RIGHT:#999999 1pt solid}
+	.bordaAbaixoAcimaEsquerdaDireita {BORDER-TOP:#999999 1px solid;BORDER-LEFT:#999999 1px solid;BORDER-BOTTOM:#999999 1px solid;BORDER-RIGHT:#999999 1px solid}
+
+	.tabelabordaAcimaBaixo
+		{
+		BORDER-TOP: #3f658c 1px solid;BORDER-BOTTOM: #3f658c 1px solid;
+		FONT-WEIGHT: bold;
+		FONT-SIZE: 7pt;
+		COLOR: #808080;
+		FONT-FAMILY: Tahoma;
+		TEXT-ALIGN: left
+		}
+
+
+	.tabelabordaAcimaEsquerdaDireita
+		{
+		BORDER-TOP: #3f658c 1px solid;BORDER-LEFT: #3f658c 1px solid;BORDER-RIGHT: #3f658c 1px solid
+		FONT-WEIGHT: bold;
+		FONT-SIZE: 7pt;
+		COLOR: #808080;
+		FONT-FAMILY: Tahoma;
+		TEXT-ALIGN: left
+		}
+
+	.bordaAcimaEsquerdaDireita
+		{
+		BORDER-TOP:#999999 1px solid;BORDER-LEFT:#999999 1px solid;BORDER-RIGHT:#999999 1px solid
+		FONT-WEIGHT: bold;
+		FONT-SIZE: 7pt;
+		COLOR: #808080;
+		FONT-FAMILY: Tahoma;
+		TEXT-ALIGN: left
+		}
+	.bordaAcima {BORDER-TOP:#999999 1px solid;}
+	.bordaAcimaEsquerda {BORDER-TOP:#999999 1px solid;BORDER-LEFT:#999999 1px solid;}
+	.bordaAcimaDireita
+		{
+		BORDER-TOP:#999999 1px solid;BORDER-RIGHT:#999999 1px solid
+		FONT-WEIGHT: bold;
+		FONT-SIZE: 7pt;
+		COLOR: #808080;
+		FONT-FAMILY: Tahoma;
+		TEXT-ALIGN: left
+		}
+	.textoCabecalhoCelula {font-size:10px; color:#333333; font-family: Arial, Helvetica, sans-serif}
+	.textoCelula {font-size:12px; font-weight: bold; color:#333333; font-family: Arial, Helvetica, sans-serif}
+	.Justificado {BORDER-TOP:#999999 1px solid;BORDER-LEFT:#999999 1px solid;BORDER-RIGHT:#999999 1px solid;BORDER-BOTTOM:#999999 1px solid}
+-->
+</STYLE>
+<TABLE id="tb_servicos_02" WIDTH="100%" height="23" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+<TR style="cursor:pointer" onClick="fecha('servicos_02')">
+   	<TD id="td1_servicos_02" VALIGN="bottom" CLASS="bordaAbaixoFina celnlef"  style="align:right;border-left:0;border-right:0" width="10" background="/imagens/barra_esq_menos_veic.gif"><img src="/imagens/barra_esq_menos_veic_transp.gif" id="img_servicos_02"></TD>
+   	<TD class="bordaCabecalhoAcimaGrossa bordaCabecalhoAbaixoGrossa" id="td2_servicos_02" COLSPAN="6" VALIGN="middle" WIDTH="200" background="/imagens/pic_bar_repeat_mais.gif">
+   	   	<span id="span_servicos_02" valign="center" style="color:#9A3410;font-weight:bold" ><font size="-2" face="tahoma,Arial, Helvetica">&nbsp;Dados do Veículo de placa NNU7294</font></span></TD>
+  	<TD class="bordaCabecalhoAcimaGrossa bordaCabecalhoAbaixoGrossa celrig" id="td3_servicos_02" VALIGN="middle" background="/imagens/pic_bar_repeat_mais.gif">
+   	   Em 25/05/2016 09:46:30</TD>
+   	<TD id="td4_servicos_02" VALIGN="bottom" class="bordaAbaixoFina celrig" width="22" background="/imagens/barra_dir_menos_veic_transp.gif"><img src="/imagens/barra_dir_menos_veic_transp.gif" id="img4_servicos_02"></TD>
+</TR>
+</table>
+<div id="div_servicos_02" style="display:">
+
+					<TABLE bgColor="white" WIDTH="100%" border="0" CELLSPACING="0" CELLPADDING="0">
+
+<TR>
+	<TD class="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina titcel">Placa<BR><SPAN CLASS="celnlef" >NNU7294</SPAN></TD>
+	<TD class="bordaAbaixoFina bordaDireitaFina titcel">Renavam<BR><SPAN CLASS="celnlef" >463309510</SPAN></TD>
+	<TD class="bordaAbaixoFina bordaDireitaFina titcel">Placa Anterior<BR><SPAN CLASS="celnlef" >NNU7294/RN</SPAN></TD>
+	<TD  class="bordaAbaixoFina bordaDireitaFina titcel" colspan="2">Tipo<BR><SPAN CLASS="celnlef" >6-AUTOMOVEL</SPAN></TD>
+	<TD class="bordaAbaixoFina bordaDireitaFina titcel">Categoria<BR><SPAN CLASS="celnlef" >1-Particular</SPAN></TD>
+	<TD  class="bordaAbaixoFina bordaDireitaFina titcel">Espécie<BR><SPAN CLASS="celnlef" >1-Passageiro</SPAN></TD>
+	<TD class="bordaAbaixoFina bordaDireitaGrossa titcel">Lugares<BR><SPAN CLASS="celnlef" >5</SPAN></TD>
+</TR>
+<TR>
+	<TD  COLSPAN="3" class="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina titcel" >Marca/Modelo<BR><SPAN CLASS="celnlef"  >102631-FIAT/UNO MILLE ECONOMY   (Nacional)</SPAN></TD>
+	<TD class="bordaAbaixoFina bordaDireitaFina titcel">Fabricação/Modelo<BR><SPAN CLASS="celnlef" >2012/2013</SPAN></TD>
+	<TD CLASS="bordaAbaixoFina bordaDireitaFina titcel">Potência<BR><SPAN CLASS="celnlef">66&nbsp;</SPAN></TD>
+	<TD class="bordaAbaixoFina bordaDireitaFina titcel">Combustível<BR><SPAN CLASS="celnlef" >16-Alcool-Gasol</SPAN></TD>
+	<TD class="bordaAbaixoFina bordaDireitaFina titcel">Cor<BR><SPAN CLASS="celnlef" >4-BRANCA</SPAN></TD>
+	<TD  class="bordaAbaixoFina bordaDireitaGrossa titcel">Carroceria<BR><SPAN CLASS="celnlef" >999-NAO APLICAVEL</SPAN></TD>
+</TR>
+<TR>
+
+	<TD COLSPAN="5" class="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina titcel">Nome do Proprietário<BR><SPAN CLASS="celnlef" >P A LOCADORA DE AUTOMOVEIS LTDA - ME</SPAN></TD>
+	<TD class="bordaAbaixoFina bordaDireitaFina titcel">Locadora<BR><SPAN CLASS="celnlef">Sim</SPAN></TD>
+
+	<TD COLSPAN="2" class="bordaAbaixoFina bordaDireitaGrossa titcel">Recadastrado DETRAN<BR><SPAN CLASS="celnlef" >DetranNet</SPAN></TD>
+</TR>
+<TR>
+
+	<TD COLSPAN="6" class="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina titcel">Proprietário Anterior<BR><SPAN CLASS="celnlef" >FIAT AUTOMOVEIS S.A. </SPAN></TD>
+
+	<TD COLSPAN="2" class="bordaAbaixoFina bordaDireitaGrossa titcel">Situação Lacre<BR><SPAN CLASS="celnlef" >REGULAR Portaria 272/2007 DENATRAN</SPAN></TD>
+
+</TR>
+<TR>
+	<TD COLSPAN="3" class="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina titcel">Município de Emplacamento<BR><SPAN CLASS="celnlef" >NATAL</SPAN></TD>
+	<TD COLSPAN="3" class="bordaAbaixoFina bordaDireitaFina titcel">Licenciado até<BR><SPAN CLASS="celnlef" >2014 em 17/06/2014, Licenciamento Anual no lote 008819, AR=<a style="cursor:hand;text-decoration: underline;color:#666666" href="http://websro.correios.com.br/sro_bin/txect01$.QueryList?P_LINGUA=001&P_TIPO=001&P_COD_UNI=RD811602476BR" target="_blank">RD811602476BR</a> (CRLV emitido)(Via 1)</SPAN></TD>
+	<TD class="bordaAbaixoFina bordaDireitaFina titcel">Adquirido em<BR><SPAN CLASS="celnlef" >11/04/2012</SPAN></TD>
+	<TD class="bordaAbaixoFina bordaDireitaGrossa titcel">Situação<BR><SPAN CLASS="celnlef" >Em Circulação </SPAN></TD>
+</TR>
+
+<TR>
+	<TD COLSPAN="6" class="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina titcel">Restrição à Venda<BR><SPAN CLASS="celnlef">Sem gravame</SPAN></TD>
+	<TD COLSPAN="2" class="bordaAbaixoFina bordaDireitaGrossa titcel">Carnê de Licenciamento 2016<BR><SPAN CLASS="celnlef">Gerado em 27/01/2016 às 16:55 hs.</SPAN></TD>
+</TR>
+
+<TR>
+
+		<TD COLSPAN="8" class="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaGrossa titcel">Informações PENDENTES originadas das financeiras via SNG - Sistema Nacional de Gravame<BR><SPAN CLASS="celnlef">Nenhuma informação pendente até esta data</SPAN></TD>
+
+</TR>
+
+<TR>
+
+			<TD COLSPAN="8" class="bordaEsquerdaGrossa
+
+			bordaDireitaGrossa titcel">Impedimentos<BR><SPAN CLASS="celnlef">Nenhum impedimento registrado até esta data</SPAN></TD>
+
+</TR>
+
+</TABLE>
+</div>
+
+<div id="exibir_servicos_03">
+<TABLE id="tb_servicos_03" height="23" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0" style="border-bottom:0;">
+<TR style="cursor:pointer" onClick="fecha('servicos_03')">
+   	<TD class="celrig" id="td1_servicos_03" VALIGN="bottom" width="22"><img src="/imagens/barra_esq_menos.gif" id="img_servicos_03"></TD>
+   	<TD class="bordaAcimaGrossa" id="td2_servicos_03" COLSPAN="6" VALIGN="middle" background="/imagens/pic_bar_repeat_mais.gif">
+   	   	<span id="span_servicos_03" valign="center" style="color:#943410"><font size="-3" face="tahoma,Arial, Helvetica">Listagem de Débitos</font></span></TD>
+  	<TD class="bordaAcimaGrossa celrig" id="td3_servicos_03" VALIGN="bottom" background="/imagens/pic_bar_repeat_mais.gif"></TD>
+   	<TD id="td4_servicos_03" class="celrig" VALIGN="bottom" width="22"><img src="/imagens/barra_dir_menos.gif" id="img4_servicos_03"></TD>
+</TR>
+</table>
+
+
+<!--
+<TABLE id="tb_pic_menu_servicos_03" WIDTH="100%" BORDER="1" CELLSPACING="0" CELLPADDING="1">
+<TR>
+	<TD COLSPAN="6" VALIGN="center" WIDTH="225" onClick="fecha('debitosVeiculo','pic_menu_servicos_03')" background="/imagens/pic_menu_repeat.gif"><IMG id="pic_menu_servicos_03" valign="center" src="/Imagens/pic_menu_servicos_03_menos.gif" ></TD>
+</TR>
+</table>
+-->
+<div id="div_servicos_03" style="display:">
+<TABLE bgcolor="white" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="1">
+
+	<TR>
+      <TD COLSPAN="2" CLASS="bordaEsquerdaGrossa bordaAbaixoFina titcel"><b>Classe (Clique abaixo para a emissão da GUIA)</b></TD>
+      <TD CLASS="bordaEsquerdaFina bordaAbaixoFina titcel"><b>Número da Guia</b></TD>
+      <TD CLASS="bordaEsquerdaFina bordaAbaixoFina titcel"><b>Vencimento</b></TD>
+      <TD CLASS="bordaEsquerdaFina bordaAbaixoFina titcel"><b>Valor Nominal(R$)</b></TD>
+      <TD CLASS="bordaEsquerdaFina bordaAbaixoFina bordaDireitaGrossa titcel"><b>Valor Atual(R$)</b></TD>
+	</TR>
+
+	   <TR>
+				<TD COLSPAN="2" CLASS="bordaEsquerdaGrossa bordaAbaixoFina celnlef"><A HREF="/SharedASP/grd.asp?NossoNumero=52014000002450070&ctrl=543866134&codigo=OPBAOCOEOARNCREMONNOOOOOOO&iddebito=2450070&TipoGuia=1" target="_blank" onmouseover="window.status='Clique para imprimir a guia de pagamento on-line';return true;" onmouseout="window.status='';return true;">STTU-217610-A 17875850-5550</A></TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">5.2014.000002450070</TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">22/12/2014</TD>
+
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celnrig">85,12</TD>
+
+	      <TD CLASS="bordaEsquerdaFina bordaAbaixoFina bordaDireitaGrossa celnrig">85,12</TD>
+
+	   </TR>
+
+	   <TR>
+				<TD COLSPAN="2" CLASS="bordaEsquerdaGrossa bordaAbaixoFina celnlef"><A HREF="/SharedASP/grd.asp?NossoNumero=52014000002457198&ctrl=543866134&codigo=OPBAPCBEOARNCREMONNOOOOOOO&iddebito=2457198&TipoGuia=1" target="_blank" onmouseover="window.status='Clique para imprimir a guia de pagamento on-line';return true;" onmouseout="window.status='';return true;">STTU-217610-A 17887064-5452</A></TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">5.2014.000002457198</TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">29/12/2014</TD>
+
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celnrig">127,69</TD>
+
+	      <TD CLASS="bordaEsquerdaFina bordaAbaixoFina bordaDireitaGrossa celnrig">127,69</TD>
+
+	   </TR>
+
+	   <TR>
+				<TD COLSPAN="2" CLASS="bordaEsquerdaGrossa bordaAbaixoFina celnlef"><A HREF="/SharedASP/grd.asp?NossoNumero=52014000002510784&ctrl=543866134&codigo=OPBABCOEOPRACREMONNOOOOOOO&iddebito=2510784&TipoGuia=1" target="_blank" onmouseover="window.status='Clique para imprimir a guia de pagamento on-line';return true;" onmouseout="window.status='';return true;">DETRAN-120100-A 18034264-5207</A></TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">5.2014.000002510784</TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">19/01/2015</TD>
+
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celnrig">53,20</TD>
+
+	      <TD CLASS="bordaEsquerdaFina bordaAbaixoFina bordaDireitaGrossa celnrig">53,20</TD>
+
+	   </TR>
+
+	   <TR>
+				<TD COLSPAN="2" CLASS="bordaEsquerdaGrossa bordaAbaixoFina celnlef"><A HREF="/SharedASP/grd.asp?NossoNumero=52014000002532957&ctrl=543866134&codigo=OPBACCEEORRACREMONNOOOOOOO&iddebito=2532957&TipoGuia=1" target="_blank" onmouseover="window.status='Clique para imprimir a guia de pagamento on-line';return true;" onmouseout="window.status='';return true;">STTU-217610-A 17902022-5541</A></TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">5.2014.000002532957</TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">02/02/2015</TD>
+
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celnrig">53,20</TD>
+
+	      <TD CLASS="bordaEsquerdaFina bordaAbaixoFina bordaDireitaGrossa celnrig">53,20</TD>
+
+	   </TR>
+
+	   <TR>
+				<TD COLSPAN="2" CLASS="bordaEsquerdaGrossa bordaAbaixoFina celnlef"><A HREF="/SharedASP/grd.asp?NossoNumero=52012000003252057&ctrl=543866134&codigo=OPBAOCEEOARECRRMONNOOOOOOO&iddebito=3252057&TipoGuia=1" target="_blank" onmouseover="window.status='Clique para imprimir a guia de pagamento on-line';return true;" onmouseout="window.status='';return true;">UF:DN-000300-G000889643-7455</A></TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">5.2012.000003252057</TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">07/06/2016</TD>
+
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celnrig">85,13</TD>
+
+	      <TD CLASS="bordaEsquerdaFina bordaAbaixoFina bordaDireitaGrossa celnrig">68,10</TD>
+
+	   </TR>
+
+	   <TR>
+				<TD COLSPAN="2" CLASS="bordaEsquerdaGrossa bordaAbaixoFina celnlef"><A HREF="/SharedASP/grdEscolhaVeiculo.asp?NossoNumero=00000100903501309&ctrl=543866134&codigo=OUPBBARCAEOCRMCRAMBNNOOOOO&iddebito=75695378" target="_blank" onmouseover="window.status='Clique para imprimir a guia de pagamento on-line';return true;" onmouseout="window.status='';return true;">Licenciamento Anual 2016</A></TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">1009035.013.0-9</TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">09/03/2016</TD>
+
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celnrig">60,00</TD>
+
+	      <TD CLASS="bordaEsquerdaFina bordaAbaixoFina bordaDireitaGrossa celnrig">72,72</TD>
+
+	   </TR>
+
+	   <TR>
+				<TD COLSPAN="2" CLASS="bordaEsquerdaGrossa bordaAbaixoFina celnlef"><A HREF="/SharedASP/grdseguro.asp?NossoNumero=00000900075695379&ctrl=543866134&codigo=OCPBBARCAEOCRMCRAMBNNOOOOO&iddebito=75695379" target="_blank" onmouseover="window.status='Clique para imprimir a guia de pagamento on-line';return true;" onmouseout="window.status='';return true;">Seguro DPVAT (Parcela Unica)  2016</A></TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">9.00075695379</TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">12/04/2016</TD>
+
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celnrig">105,65</TD>
+
+	      <TD CLASS="bordaEsquerdaFina bordaAbaixoFina bordaDireitaGrossa celnrig">105,65</TD>
+
+	   </TR>
+
+	   <TR>
+				<TD COLSPAN="2" CLASS="bordaEsquerdaGrossa bordaAbaixoFina celnlef"><A HREF="/SharedASP/grdEscolhaVeiculo.asp?NossoNumero=00000100903501511&ctrl=543866134&codigo=OPPUBARCAEOCRMCRAMBNNOOOOO&iddebito=75695381" target="_blank" onmouseover="window.status='Clique para imprimir a guia de pagamento on-line';return true;" onmouseout="window.status='';return true;">IPVA (1a. Cota) 2016</A></TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">1009035.015.1-1</TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">12/04/2016</TD>
+
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celnrig">60,49</TD>
+
+	      <TD CLASS="bordaEsquerdaFina bordaAbaixoFina bordaDireitaGrossa celnrig">69,53</TD>
+
+	   </TR>
+
+	   <TR>
+				<TD COLSPAN="2" CLASS="bordaEsquerdaGrossa bordaAbaixoFina celnlef"><A HREF="/SharedASP/grdEscolhaVeiculo.asp?NossoNumero=00000100903501521&ctrl=543866134&codigo=OEPUBARCAEOCRMCRAMBNNOOOOO&iddebito=75695382" target="_blank" onmouseover="window.status='Clique para imprimir a guia de pagamento on-line';return true;" onmouseout="window.status='';return true;">IPVA (2a. Cota) 2016</A></TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">1009035.015.2-1</TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">12/05/2016</TD>
+
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celnrig">60,49</TD>
+
+	      <TD CLASS="bordaEsquerdaFina bordaAbaixoFina bordaDireitaGrossa celnrig">63,44</TD>
+
+	   </TR>
+
+	   <TR>
+				<TD COLSPAN="2" CLASS="bordaEsquerdaGrossa bordaAbaixoFina celnlef"><A HREF="/SharedASP/grdEscolhaVeiculo.asp?NossoNumero=00000100903501538&ctrl=543866134&codigo=ORPUBARCAEOCRMCRAMBNNOOOOO&iddebito=75695383" target="_blank" onmouseover="window.status='Clique para imprimir a guia de pagamento on-line';return true;" onmouseout="window.status='';return true;">IPVA (3a. Cota) 2016</A></TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">1009035.015.3-8</TD>
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celncen">17/06/2016</TD>
+
+	   <TD CLASS="bordaEsquerdaFina bordaAbaixoFina celnrig">60,48</TD>
+
+	      <TD CLASS="bordaEsquerdaFina bordaAbaixoFina bordaDireitaGrossa celnrig">60,48</TD>
+
+	   </TR>
+
+	<TR>
+
+      		<TD COLSPAN="4" CLASS="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina celrig"><B>Total dos Débitos</B></TD>
+
+      <TD CLASS="bordaAbaixoFina bordaDireitaFina celrig"><B>R$ 751,45</B></TD>
+      <TD CLASS="bordaAbaixoFina bordaDireitaGrossa celrig"><B>R$ 759,13</B></TD>
+    </TR>
+
+</TABLE>
+
+	<TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="1">
+		<TR>
+			<TD WIDTH="16%" CLASS="bordaEsquerdaGrossa bordaDireitaFina titcel">Taxas Detran<BR><SPAN CLASS="celrig">72,72</SPAN></TD>
+			<TD WIDTH="16%" CLASS="bordaDireitaFina titcel">Seguro DPVAT<BR><SPAN CLASS="celrig">105,65</SPAN></TD>
+
+				<TD WIDTH="16%" CLASS="bordaDireitaFina titcel">IPVA<BR><SPAN CLASS="celrig">193,45</SPAN></TD>
+
+			<TD WIDTH="16%" CLASS="bordaDireitaGrossa titcel">Multas<BR><SPAN CLASS="celrig">387,31</SPAN></TD>
+		</TR>
+	</TABLE>
+
+</div>
+</div>
+
+<div id="exibir_servicos_10">
+<TABLE id="tb_servicos_10" height="23" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0" style="border-bottom:0;">
+<TR style="cursor:pointer" onClick="fecha('servicos_10')">
+   	<TD class="celrig" id="td1_servicos_10" VALIGN="bottom" width="22"><img src="/imagens/barra_esq_menos.gif" id="img_servicos_10"></TD>
+   	<TD class="bordaAcimaGrossa" id="td2_servicos_10" COLSPAN="6" VALIGN="middle" background="/imagens/pic_bar_repeat_mais.gif">
+	   	<span id="span_servicos_10" valign="center" style="color:#943410"><font size="-3" face="tahoma,Arial, Helvetica">Infrações em Autuação</font></span></TD>
+  	<TD class="bordaAcimaGrossa celrig" id="td3_servicos_10" VALIGN="bottom" background="/imagens/pic_bar_repeat_mais.gif"></TD>
+   	<TD id="td4_servicos_10" class="celrig" VALIGN="bottom" width="22"><img src="/imagens/barra_dir_menos.gif" id="img4_servicos_10"></TD>
+</TR>
+</table>
+
+<DIV ID="div_servicos_10" style="display:">
+<TABLE bgcolor="white" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+
+
+	<TR>
+      <TD NOWRAP CLASS="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina titcel"><b>Num.Auto</b></TD>
+      <TD COLSPAN="3" CLASS="bordaAbaixoFina bordaDireitaFina titcel"><b>Descrição</b></TD>
+      <TD COLSPAN="3" CLASS="bordaAbaixoFina bordaDireitaGrossa titcel"><b>Local/Complemento</b></TD>
+	</TR>
+
+    <TR>
+      <TD NOWRAP CLASS="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina celnlef8">
+		  <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+			<TR>
+				<TD NOWRAP" CLASS="celnlef8">STTU-217610-A 18065392-5410</TD>
+			</TR>
+			<TR>
+				<TD CLASS="celnrig8">Em aberto</TD>
+			</TR>
+		  </TABLE>
+      </TD>
+	  <TD COLSPAN="3" CLASS="bordaAbaixoFina bordaDireitaFina celnlef8">
+		  <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+			<TR><TD CLASS="celnlef8">ESTACIONAR EM DESARCORDO COM  POSICOES ESTABELECIDAS NO CTB</TD></TR>
+
+			<TR><TD CLASS="celnlef8">Em NATAL no dia 17/08/2015 às 14h40min</TD></TR>
+
+		  </TABLE>
+	  </TD>
+	  <TD COLSPAN="3" CLASS="bordaAbaixoFina bordaDireitaGrossa celnlef8">
+		  <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+			<TR><TD CLASS="celnlef8">AV RODRIGUES ALVES COM RUA MOSSORO EM FRENTE AO SEMAFORO, TIROL</TD></TR>
+			<TR><TD CLASS="celnlef8">VEICULO FECHADO E O CONDUTOR AUSENTE, PRÓXIMO A FAIXA DE PEDESTRE</TD></TR>
+		  </TABLE>
+	  </TD>
+    </TR>
+
+    <TR>
+      <TD NOWRAP CLASS="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina celnlef8">
+		  <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+			<TR>
+				<TD NOWRAP" CLASS="celnlef8">STTU-217610-A 18145048-5550</TD>
+			</TR>
+			<TR>
+				<TD CLASS="celnrig8">Em aberto</TD>
+			</TR>
+		  </TABLE>
+      </TD>
+	  <TD COLSPAN="3" CLASS="bordaAbaixoFina bordaDireitaFina celnlef8">
+		  <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+			<TR><TD CLASS="celnlef8">ESTACIONAR EM LOCAIS/HORARIO PROIBIDOS C/PLACA SINALIZANDO</TD></TR>
+
+			<TR><TD CLASS="celnlef8">Em NATAL no dia 26/02/2016 às 17h34min</TD></TR>
+
+		  </TABLE>
+	  </TD>
+	  <TD COLSPAN="3" CLASS="bordaAbaixoFina bordaDireitaGrossa celnlef8">
+		  <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+			<TR><TD CLASS="celnlef8">AV DEODORO DA FONSECA AO LADO DO ITAU, C ALTA</TD></TR>
+			<TR><TD CLASS="celnlef8">CONDUTOR AUSENTE</TD></TR>
+		  </TABLE>
+	  </TD>
+    </TR>
+
+</TABLE>
+</DIV>
+</div>
+
+<div id="exibir_servicos_04">
+<TABLE id="tb_servicos_04" height="23" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0" style="border-bottom:0;">
+<TR style="cursor:pointer" onClick="fecha('servicos_04')">
+   	<TD class="celrig" id="td1_servicos_04" VALIGN="bottom" width="22"><img src="/imagens/barra_esq_menos.gif" id="img_servicos_04"></TD>
+   	<TD class="bordaAcimaGrossa" id="td2_servicos_04" COLSPAN="6" VALIGN="middle" background="/imagens/pic_bar_repeat_mais.gif" style="border-right:0">
+	   	<span id="span_servicos_04" valign="center" style="color:#943410"><font size="-3" face="tahoma,Arial, Helvetica">Listagem de Multas</font></span></TD>
+  	<TD class="bordaAcimaGrossa celrig" id="td3_servicos_04" VALIGN="bottom" background="/imagens/pic_bar_repeat_mais.gif" style="border-left:0"></TD>
+   	<TD id="td4_servicos_04" class="celrig" VALIGN="bottom" style="align:left;border-left:0" width="22"><img src="/imagens/barra_dir_menos.gif" id="img4_servicos_04"></TD>
+</TR>
+</table>
+
+
+<DIV ID="div_servicos_04" style="display:">
+<TABLE bgcolor="white" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="1">
+
+	</TR>
+      <TD NOWRAP CLASS="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina titcel"><b>Num.Auto</b></TD>
+      <TD COLSPAN="3" CLASS="bordaAbaixoFina bordaDireitaFina titcel"><b>Descrição</b></TD>
+      <TD COLSPAN="3" CLASS="bordaAbaixoFina bordaDireitaGrossa titcel"><b>Local/Complemento</b></TD>
+	</TR>
+
+    <TR>
+      <TD NOWRAP class="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina">
+	  <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+		<TR><TD CLASS="celnlef8">UF:DN-000300-G000889643-7455</TD></TR>
+		<TR><TD CLASS="celnrig8">Em aberto</TD></TR>
+      </TABLE>
+      </TD>
+	  <TD COLSPAN="3" class="bordaAbaixoFina bordaDireitaFina">
+	  <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+		<TR><TD CLASS="celnlef8">TRANSITAR/VELOCIDADE SUPERIOR A MAXIMA EM ATE 20%</TD></TR>
+
+		<TR><TD CLASS="celnlef8">Em NATAL no dia 20/11/2012 às 16h48min</TD></TR>
+
+	  </TABLE>
+	  </TD>
+	  <TD COLSPAN="3" class="bordaAbaixoFina bordaDireitaGrossa">
+	  <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+		<TR><TD CLASS="celnlef8">BR-406 KM 170.3</TD></TR>
+		<TR><TD CLASS="celnlef8"></TD></TR>
+	  </TABLE>
+	  </TD>
+    </TR>
+
+    <TR>
+      <TD NOWRAP class="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina">
+	  <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+		<TR><TD CLASS="celnlef8">STTU-217610-A 17875850-5550</TD></TR>
+		<TR><TD CLASS="celnrig8">Em aberto</TD></TR>
+      </TABLE>
+      </TD>
+	  <TD COLSPAN="3" class="bordaAbaixoFina bordaDireitaFina">
+	  <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+		<TR><TD CLASS="celnlef8">ESTACIONAR EM LOCAIS/HORARIO PROIBIDOS C/PLACA SINALIZANDO</TD></TR>
+
+		<TR><TD CLASS="celnlef8">Em NATAL no dia 12/04/2013 às 14h20min</TD></TR>
+
+	  </TABLE>
+	  </TD>
+	  <TD COLSPAN="3" class="bordaAbaixoFina bordaDireitaGrossa">
+	  <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+		<TR><TD CLASS="celnlef8">AV PRUDENTE DE MORAIS EM FRENT</TD></TR>
+		<TR><TD CLASS="celnlef8"></TD></TR>
+	  </TABLE>
+	  </TD>
+    </TR>
+
+    <TR>
+      <TD NOWRAP class="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina">
+	  <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+		<TR><TD CLASS="celnlef8">STTU-217610-A 17887064-5452</TD></TR>
+		<TR><TD CLASS="celnrig8">Em aberto</TD></TR>
+      </TABLE>
+      </TD>
+	  <TD COLSPAN="3" class="bordaAbaixoFina bordaDireitaFina">
+	  <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+		<TR><TD CLASS="celnlef8">ESTACIONAR AO LADO OU SOBRE CANTEIRO CENTRAL</TD></TR>
+
+		<TR><TD CLASS="celnlef8">Em NATAL no dia 16/07/2013 às 11h27min</TD></TR>
+
+	  </TABLE>
+	  </TD>
+	  <TD COLSPAN="3" class="bordaAbaixoFina bordaDireitaGrossa">
+	  <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+		<TR><TD CLASS="celnlef8">RUA SÃO JOSÉ EM FRENTE AO IMOV</TD></TR>
+		<TR><TD CLASS="celnlef8"></TD></TR>
+	  </TABLE>
+	  </TD>
+    </TR>
+
+    <TR>
+      <TD NOWRAP class="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina">
+	  <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+		<TR><TD CLASS="celnlef8">STTU-217610-A 17902022-5541</TD></TR>
+		<TR><TD CLASS="celnrig8">Em aberto</TD></TR>
+      </TABLE>
+      </TD>
+	  <TD COLSPAN="3" class="bordaAbaixoFina bordaDireitaFina">
+	  <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+		<TR><TD CLASS="celnlef8">ESTACIONAR EM DESACORDO COM A REGULAMENTAÇÃO -VAGA DE CARGA/</TD></TR>
+
+		<TR><TD CLASS="celnlef8">Em NATAL no dia 21/01/2014 às 15h35min</TD></TR>
+
+	  </TABLE>
+	  </TD>
+	  <TD COLSPAN="3" class="bordaAbaixoFina bordaDireitaGrossa">
+	  <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+		<TR><TD CLASS="celnlef8">RUA LEONEL LEITE Nº 1375, ALEC</TD></TR>
+		<TR><TD CLASS="celnlef8"></TD></TR>
+	  </TABLE>
+	  </TD>
+    </TR>
+
+    <TR>
+      <TD NOWRAP class="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina">
+	  <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+		<TR><TD CLASS="celnlef8">DETRAN-120100-A 18034264-5207</TD></TR>
+		<TR><TD CLASS="celnrig8">Em aberto</TD></TR>
+      </TABLE>
+      </TD>
+	  <TD COLSPAN="3" class="bordaAbaixoFina bordaDireitaFina">
+	  <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+		<TR><TD CLASS="celnlef8">DIRIGIR SEM ATENCAO OU SEM CUIDADOS INDISPENSAVEIS</TD></TR>
+
+		<TR><TD CLASS="celnlef8">Em NATAL no dia 13/09/2014 às 16h49min</TD></TR>
+
+	  </TABLE>
+	  </TD>
+	  <TD COLSPAN="3" class="bordaAbaixoFina bordaDireitaGrossa">
+	  <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+		<TR><TD CLASS="celnlef8">AV. SEN. DINARTE MARIZ DEFRONTE AO PR03 SENT. PONTA NEGRA, MÃE LUIZA</TD></TR>
+		<TR><TD CLASS="celnlef8"></TD></TR>
+	  </TABLE>
+	  </TD>
+    </TR>
+
+</TABLE>
+</DIV>
+</div>
+
+<div id="exibir_servicos_11">
+<TABLE id="tb_servicos_11" height="23" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0" style="border-bottom:0;">
+<TR style="cursor:pointer" onClick="fecha('servicos_11')">
+   	<TD class="celrig" id="td1_servicos_11" VALIGN="bottom" width="22"><img src="/imagens/barra_esq_menos.gif" id="img_servicos_11"></TD>
+   	<TD class="bordaAcimaGrossa" id="td2_servicos_11" COLSPAN="6" VALIGN="middle" background="/imagens/pic_bar_repeat_mais.gif" style="border-right:0">
+	   	<span id="span_servicos_11" valign="center" style="color:#943410"><font size="-3" face="tahoma,Arial, Helvetica">Último Processo</font></span></TD>
+  	<TD class="bordaAcimaGrossa" id="td3_servicos_11" VALIGN="bottom" class="celrig" background="/imagens/pic_bar_repeat_mais.gif" style="border-left:0"></TD>
+   	<TD id="td4_servicos_11" class="celrig" VALIGN="bottom"  width="22"><img src="/imagens/barra_dir_menos.gif" id="img4_servicos_11"></TD>
+</TR>
+</table>
+
+
+<div id="div_servicos_11" style="display:">
+<TABLE bgcolor="white" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+
+    <TR>
+      <TD CLASS="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina titcel">Processo<BR><SPAN CLASS="celbold">20013104/2012</SPAN></TD>
+	  <TD COLSPAN="2" CLASS="bordaAbaixoFina bordaDireitaFina titcel">Interessado<BR><SPAN CLASS="celbold">97118583472</SPAN></TD>
+
+	     <TD COLSPAN="3" CLASS="bordaAbaixoFina bordaDireitaGrossa titcel">Início em<BR><SPAN CLASS="celbold">25/04/2012 às 09h33min</SPAN></TD>
+
+	</TR>
+    <TR>
+      <TD COLSPAN="3" CLASS="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina titcel">Situação<BR><SPAN CLASS="celbold">Encerrado</SPAN></TD>
+
+	     <TD COLSPAN="3" CLASS="bordaAbaixoFina bordaDireitaGrossa titcel">Final em<BR><SPAN CLASS="celbold">25/04/2012 às 12h00min</SPAN></TD>
+
+	</TR>
+
+	<TR>
+
+         <TD COLSPAN="4" CLASS="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina titcel"><b>Serviço</b></TD>
+         <TD COLSPAN="2" CLASS="bordaAbaixoFina bordaDireitaGrossa titcel"><b>Execução em</b></TD>
+
+	</TR>
+
+		   <TR>
+
+				<TD COLSPAN="4" CLASS="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina celnlef">Primeiro Emplacamento</TD>
+				<TD COLSPAN="2" CLASS="bordaAbaixoFina bordaDireitaGrossa celnlef">Em 25/04/2012 às 09h33min por 24318132404</TD>
+
+		   </TR>
+
+		   <TR>
+
+				<TD COLSPAN="4" CLASS="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina celnlef">Geração de guia de pagamento</TD>
+				<TD COLSPAN="2" CLASS="bordaAbaixoFina bordaDireitaGrossa celnlef">Em 25/04/2012 às 09h33min por 24318132404</TD>
+
+		   </TR>
+
+		   <TR>
+
+				<TD COLSPAN="4" CLASS="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina celnlef">Auditoria</TD>
+				<TD COLSPAN="2" CLASS="bordaAbaixoFina bordaDireitaGrossa celnlef">Em 25/04/2012 às 12h00min por 49078577487</TD>
+
+		   </TR>
+
+		   <TR>
+
+				<TD COLSPAN="4" CLASS="bordaEsquerdaGrossa bordaAbaixoFina bordaDireitaFina celnlef">Emissão CRV(1ª via)</TD>
+				<TD COLSPAN="2" CLASS="bordaAbaixoFina bordaDireitaGrossa celnlef">Em 25/04/2012 às 12h23min por 20069510415</TD>
+
+		   </TR>
+
+</TABLE>
+
+</div>
+</div>
+
+<div id="exibir_servicos_09">
+<TABLE id="tb_servicos_09" height="23" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0" style="border-bottom:0;">
+<TR style="cursor:pointer" onClick="fecha('servicos_09')">
+   	<TD class="celrig" id="td1_servicos_09" VALIGN="bottom" style="align:right;border-left:0" width="22"><img src="/imagens/barra_esq_menos.gif" id="img_servicos_09"></TD>
+   	<TD class="bordaAcimaGrossa" id="td2_servicos_09" COLSPAN="6" VALIGN="middle" background="/imagens/pic_bar_repeat_mais.gif" style="border-right:0">
+	   	<span id="span_servicos_09" valign="center" style="color:#943410"><font size="-3" face="tahoma,Arial, Helvetica">Recurso de Infração</font></span></TD>
+  	<TD class="bordaAcimaGrossa" id="td3_servicos_09" VALIGN="bottom" class="celrig" background="/imagens/pic_bar_repeat_mais.gif" style="border-left:0"></TD>
+   	<TD id="td4_servicos_09" class="celrig" VALIGN="bottom" style="align:left;border-left:0" width="22"><img src="/imagens/barra_dir_menos.gif" id="img4_servicos_09"></TD>
+</TR>
+</table>
+
+<DIV ID="div_servicos_09" style="display:">
+<TABLE bgcolor="white" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+
+	<TR>
+	<TD COLSPAN="4" SPAN CLASS="bordaEsquerdaGrossa bordaDireitaGrossa celcen">Nenhuma Processo de Recurso de Infração cadastrado para este veículo até o momento.</SPAN></TD>
+	</TR>
+
+</TABLE>
+</DIV>
+</div>
+
+<div id="exibir_servicos_17">
+<TABLE id="tb_servicos_17" height="23" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0" style="border-bottom:0;">
+<TR style="cursor:hand">
+	<span onClick="fecha('servicos_17')">
+   	<TD class="celrig" id="td1_servicos_17" VALIGN="bottom" style="align:right;border-left:0" width="22"><img src="/imagens/barra_esq_mais.gif" id="img_servicos_17"></TD>
+   	<TD class="bordaAcimaFina" id="td2_servicos_17" COLSPAN="6" VALIGN="middle" WIDTH="145"   background="/imagens/pic_bar_repeat_mais.gif" style="border-right:0">
+	   	<span id="span_servicos_17" valign="center" style="color:#234578"><font size="-3" face="tahoma,Arial, Helvetica">Histórico de Impedimentos</font></span></TD>
+  	<TD class="bordaAcimaFina" id="td3_servicos_17" VALIGN="bottom"   class="celrig" background="/imagens/pic_bar_repeat_mais.gif" style="border-left:0"></TD>
+   	<TD id="td4_servicos_17" class="celrig" VALIGN="bottom"   style="align:left;border-left:0" width="22"><img src="/imagens/barra_dir_mais.gif" id="img4_servicos_17"></TD>
+	</span>
+</TR>
+</table>
+
+
+<div id="div_servicos_17" style="display:">
+<TABLE bgcolor="white" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+
+	<TR>
+	<TD COLSPAN="7" SPAN CLASS="bordaEsquerdaGrossa bordaDireitaGrossa celcen">Nenhum impedimento cadastrado para este veículo.</SPAN></TD>
+	</TR>
+
+</TABLE>
+</div>
+</div>
+
+<div id="exibir_servicos_22">
+<TABLE id="tb_servicos_22" height="23" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0" style="border-bottom:0;">
+<TR style="cursor:hand">
+	<span onClick="fecha('servicos_22')">
+   	<TD class="celrig" id="td1_servicos_22" VALIGN="bottom" style="align:right;border-left:0" width="22"><img src="/imagens/barra_esq_mais.gif" id="img_servicos_22"></TD>
+   	<TD class="bordaAcimaFina" id="td2_servicos_22" COLSPAN="6" VALIGN="middle" WIDTH="145"   background="/imagens/pic_bar_repeat_mais.gif" style="border-right:0">
+	   	<span id="span_servicos_22" valign="center" style="color:#234578"><font size="-3" face="tahoma,Arial, Helvetica">RENAJUD</font></span></TD>
+  	<TD class="bordaAcimaFina" id="td3_servicos_22" VALIGN="bottom"   class="celrig" background="/imagens/pic_bar_repeat_mais.gif" style="border-left:0"></TD>
+   	<TD id="td4_servicos_22" class="celrig" VALIGN="bottom"   style="align:left;border-left:0" width="22"><img src="/imagens/barra_dir_mais.gif" id="img4_servicos_22"></TD>
+	</span>
+</TR>
+</table>
+
+
+<div id="div_servicos_22" style="display:">
+<TABLE bgcolor="white" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+
+	<TR>
+	<TD COLSPAN="7" SPAN CLASS="bordaEsquerdaGrossa bordaDireitaGrossa celcen">Nenhuma restrição RENAJUD cadastrada para este veículo.</SPAN></TD>
+	</TR>
+
+</TABLE>
+</div>
+</div>
+
+		</DIV>
+		<BR>
+		<TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+			<TR>
+				<TD align="CENTER"><img border="0" src="/imagens/pic_nada_consta.gif"></TD>
+			</TR>
+		</TABLE>
+		<BR>
+		<P>
+			<A href="/externo/consultarveiculo.asp"><br><IMG  src="/imagens/pic_voltar.gif"  border=0></A>
+		</P>
+		</BODY>
+		</HTML>

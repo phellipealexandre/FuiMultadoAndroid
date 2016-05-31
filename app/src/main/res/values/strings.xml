@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Fui Multado?</string>
+    <string name="add_car">Adicionar carro</string>
+    <string name="remove_car">Remover carro</string>
+    <string name="remove_car_content">Tem certeza que deseja remover carro o carro selecionado?</string>
+    <string name="add">Adicionar</string>
+    <string name="remove">Remover</string>
+    <string name="cancel">Cancelar</string>
+    <string name="refresh">Atualizar</string>
+    <string name="renavam">Renavam</string>
+    <string name="plate">Placa</string>
+    <string name="estado">Estado</string>
+    <string name="warning">Aviso</string>
+    <string name="ok">Ok</string>
+    <string name="loading">Carregando</string>
+    <string name="wait">Aguarde...</string>
+
+    <string name="no_cars_added">Não existem carros cadastrados</string>
+
+</resources>
