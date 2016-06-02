@@ -13,9 +13,6 @@ import com.manolosmobile.fuimultado.models.Car;
 
 import java.sql.SQLException;
 
-/**
- * Created by phellipe on 4/21/16.
- */
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "FuiMultadoDB";

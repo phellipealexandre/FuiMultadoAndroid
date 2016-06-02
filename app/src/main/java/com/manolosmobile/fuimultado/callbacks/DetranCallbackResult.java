@@ -2,22 +2,19 @@ package com.manolosmobile.fuimultado.callbacks;
 
 import com.manolosmobile.fuimultado.models.Car;
 
-/**
- * Created by phellipe on 5/16/16.
- */
-public class CallbackResult {
+public class DetranCallbackResult {
 
     private Car resultCar;
     private boolean hasError;
     private String errorMessage;
 
-    public CallbackResult(Car resultCar) {
+    public DetranCallbackResult(Car resultCar) {
         this.resultCar = resultCar;
         this.hasError = false;
         this.errorMessage = "";
     }
 
-    public CallbackResult(String errorMessage) {
+    public DetranCallbackResult(String errorMessage) {
         this.resultCar = null;
         this.hasError = true;
         this.errorMessage = errorMessage;

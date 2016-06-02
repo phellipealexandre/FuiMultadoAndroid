@@ -3,11 +3,8 @@ package com.manolosmobile.fuimultado.database;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.PreparedQuery;
-import com.j256.ormlite.stmt.QueryBuilder;
-import com.manolosmobile.fuimultado.callbacks.OnCarsReceivedCallback;
-import com.manolosmobile.fuimultado.callbacks.OnDatabaseOperationFinishCallback;
+import com.manolosmobile.fuimultado.callbacks.abstractions.OnCarsReceivedCallback;
+import com.manolosmobile.fuimultado.callbacks.abstractions.OnDatabaseOperationFinishCallback;
 import com.manolosmobile.fuimultado.models.Bill;
 import com.manolosmobile.fuimultado.models.Car;
 
@@ -68,7 +65,7 @@ public class DatabaseManager {
             @Override
             protected void onPostExecute(List<Car> cars) {
                 super.onPostExecute(cars);
-                callback.onSuccess(cars);
+                callback.onFinish(cars);
             }
         };
 
@@ -99,7 +96,7 @@ public class DatabaseManager {
             @Override
             protected void onPostExecute(String errorMessage) {
                 super.onPostExecute(errorMessage);
-                callback.onOperationFinish(errorMessage == null, errorMessage);
+                callback.onFinish(errorMessage == null, errorMessage);
             }
         };
 
@@ -127,7 +124,7 @@ public class DatabaseManager {
             @Override
             protected void onPostExecute(String errorMessage) {
                 super.onPostExecute(errorMessage);
-                callback.onOperationFinish(errorMessage == null, errorMessage);
+                callback.onFinish(errorMessage == null, errorMessage);
             }
         };
 
@@ -153,7 +150,7 @@ public class DatabaseManager {
             @Override
             protected void onPostExecute(String errorMessage) {
                 super.onPostExecute(errorMessage);
-                callback.onOperationFinish(errorMessage == null, errorMessage);
+                callback.onFinish(errorMessage == null, errorMessage);
             }
         };
 

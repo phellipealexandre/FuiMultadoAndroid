@@ -3,7 +3,6 @@ package com.manolosmobile.fuimultado;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,17 +16,17 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.manolosmobile.fuimultado.adapters.CarsListAdapter;
-import com.manolosmobile.fuimultado.bills.BillsHelper;
-import com.manolosmobile.fuimultado.bills.UpdateBillsCallback;
-import com.manolosmobile.fuimultado.callbacks.OnCarsReceivedCallback;
+import com.manolosmobile.fuimultado.bills.BillsUpdater;
+import com.manolosmobile.fuimultado.callbacks.abstractions.OnBillsUpdatedCallback;
+import com.manolosmobile.fuimultado.callbacks.abstractions.OnCarsReceivedCallback;
+import com.manolosmobile.fuimultado.callbacks.abstractions.OnDatabaseOperationFinishCallback;
 import com.manolosmobile.fuimultado.database.DatabaseManager;
-import com.manolosmobile.fuimultado.callbacks.UpdateCarListCallback;
 import com.manolosmobile.fuimultado.exceptions.ParserNotFoundException;
 import com.manolosmobile.fuimultado.models.Car;
 import com.manolosmobile.fuimultado.sharedpreferences.DateSharedPreferencePersister;
 import com.manolosmobile.fuimultado.ui.DialogHelper;
-import com.manolosmobile.fuimultado.callbacks.CallbackResult;
-import com.manolosmobile.fuimultado.callbacks.DetranParseCallback;
+import com.manolosmobile.fuimultado.callbacks.DetranCallbackResult;
+import com.manolosmobile.fuimultado.callbacks.abstractions.OnDetranParseFinishedCallback;
 import com.manolosmobile.fuimultado.web.DetranParser;
 import com.manolosmobile.fuimultado.web.DetranParserFactory;
 import com.manolosmobile.fuimultado.web.EEstate;
@@ -89,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
                 return true;
             default:
-                // If we got here, the user's action was not recognized. Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
         }
     }
@@ -103,17 +101,26 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         try {
             DialogHelper.createProgressDialog(this);
             DetranParser parser = DetranParserFactory.createParser(this, EEstate.getEnumByString(estate));
-            parser.getCarInfoFromWeb(plate, renavam, new DetranParseCallback() {
+            parser.getCarInfoFromWeb(plate, renavam, new OnDetranParseFinishedCallback() {
 
                 @Override
-                public void onFinish(CallbackResult result) {
+                public void onFinish(DetranCallbackResult result) {
                     DialogHelper.dismissCurrentDialog();
 
                     if (result.hasError()) {
                         DialogHelper.createWarningDialog(MainActivity.this, result.getErrorMessage());
                     } else {
                         Car car = result.getResultCar();
-                        DatabaseManager.getInstance().addCar(car, new UpdateCarListCallback(MainActivity.this));
+                        DatabaseManager.getInstance().addCar(car, new OnDatabaseOperationFinishCallback() {
+                            @Override
+                            public void onFinish(boolean success, String errorMessage) {
+                                if (success) {
+                                    updateList();
+                                } else {
+                                    DialogHelper.createWarningDialog(MainActivity.this, errorMessage);
+                                }
+                            }
+                        });
                     }
                 }
             });
@@ -123,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     private void updateCars() {
-        BillsHelper.updateBillsFromCars(this, new UpdateBillsCallback() {
+        BillsUpdater.updateBillsFromAllCarsInDatabase(this, new OnBillsUpdatedCallback() {
 
             @Override
             public void onSuccess() {
@@ -171,10 +178,10 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         });
     }
 
-    public void updateList() {
+    private void updateList() {
         DatabaseManager.getInstance().findAllCars(new OnCarsReceivedCallback() {
             @Override
-            public void onSuccess(List<Car> cars) {
+            public void onFinish(List<Car> cars) {
                 if (!cars.isEmpty()) {
                     txtNoCarsWarning.setVisibility(View.GONE);
                     listCars.setVisibility(View.VISIBLE);

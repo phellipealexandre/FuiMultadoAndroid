@@ -1,17 +1,17 @@
 package com.manolosmobile.fuimultado.bills;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.manolosmobile.fuimultado.callbacks.OnCarsReceivedCallback;
+import com.manolosmobile.fuimultado.callbacks.abstractions.OnCarsReceivedCallback;
+import com.manolosmobile.fuimultado.callbacks.abstractions.OnBillsUpdatedCallback;
 import com.manolosmobile.fuimultado.database.DatabaseManager;
-import com.manolosmobile.fuimultado.callbacks.OnDatabaseOperationFinishCallback;
+import com.manolosmobile.fuimultado.callbacks.abstractions.OnDatabaseOperationFinishCallback;
 import com.manolosmobile.fuimultado.exceptions.ParserNotFoundException;
 import com.manolosmobile.fuimultado.models.Car;
 import com.manolosmobile.fuimultado.notification.NotificationHelper;
 import com.manolosmobile.fuimultado.ui.DialogHelper;
-import com.manolosmobile.fuimultado.callbacks.CallbackResult;
-import com.manolosmobile.fuimultado.callbacks.DetranParseCallback;
+import com.manolosmobile.fuimultado.callbacks.DetranCallbackResult;
+import com.manolosmobile.fuimultado.callbacks.abstractions.OnDetranParseFinishedCallback;
 import com.manolosmobile.fuimultado.web.DetranParser;
 import com.manolosmobile.fuimultado.web.DetranParserFactory;
 import com.manolosmobile.fuimultado.web.EEstate;
@@ -19,15 +19,15 @@ import com.manolosmobile.fuimultado.web.EEstate;
 import java.util.Collections;
 import java.util.List;
 
-public class BillsHelper {
+public class BillsUpdater {
 
     private static List<Car> threadSafeList = null;
 
-    public static synchronized void updateBillsFromCars(final Context context, final UpdateBillsCallback callback) {
+    public static synchronized void updateBillsFromAllCarsInDatabase(final Context context, final OnBillsUpdatedCallback callback) {
         if (threadSafeList == null) {
             DatabaseManager.getInstance().findAllCars(new OnCarsReceivedCallback() {
                 @Override
-                public void onSuccess(List<Car> cars) {
+                public void onFinish(List<Car> cars) {
                     threadSafeList = Collections.synchronizedList(cars);
                     for (final Car currentCar : cars) {
                         updateCarInfo(context, callback, currentCar);
@@ -37,17 +37,15 @@ public class BillsHelper {
         }
     }
 
-    private static void updateCarInfo(final Context context, final UpdateBillsCallback callback, final Car currentCar) {
+    private static void updateCarInfo(final Context context, final OnBillsUpdatedCallback callback, final Car currentCar) {
         try {
             DetranParser parser = DetranParserFactory.createParser(context, EEstate.getEnumByString(currentCar.getEstate()));
-            parser.getCarInfoFromWeb(currentCar.getPlate(), currentCar.getRenavam(), new DetranParseCallback() {
+            parser.getCarInfoFromWeb(currentCar.getPlate(), currentCar.getRenavam(), new OnDetranParseFinishedCallback() {
                 @Override
-                public void onFinish(final CallbackResult result) {
+                public void onFinish(final DetranCallbackResult result) {
                     if (result.hasError()) {
                         threadSafeList.remove(currentCar);
-                        if (callback != null) {
-                            callback.onError(result.getErrorMessage());
-                        }
+                        callback.onError(result.getErrorMessage());
 
                         if (threadSafeList.isEmpty()) {
                             threadSafeList = null;
@@ -63,15 +61,13 @@ public class BillsHelper {
         }
     }
 
-    private static void updateCarOnDatabase(final UpdateBillsCallback callback, final Car currentCar, final Car updatedCar) {
+    private static void updateCarOnDatabase(final OnBillsUpdatedCallback callback, final Car currentCar, final Car updatedCar) {
         DatabaseManager.getInstance().updateAllBills(updatedCar, new OnDatabaseOperationFinishCallback() {
             @Override
-            public void onOperationFinish(boolean success, String errorMessage) {
+            public void onFinish(boolean success, String errorMessage) {
                 threadSafeList.remove(currentCar);
                 if (threadSafeList.isEmpty()) {
-                    if (callback != null) {
-                        callback.onSuccess();
-                    }
+                    callback.onSuccess();
                     threadSafeList = null;
                 }
             }

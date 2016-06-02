@@ -2,11 +2,9 @@ package com.manolosmobile.fuimultado.callbacks;
 
 import android.app.Activity;
 
+import com.manolosmobile.fuimultado.callbacks.abstractions.OnDatabaseOperationFinishCallback;
 import com.manolosmobile.fuimultado.ui.DialogHelper;
 
-/**
- * Created by phellipe on 5/19/16.
- */
 public class FinishActivityCallback implements OnDatabaseOperationFinishCallback {
 
     private Activity activity;
@@ -16,7 +14,7 @@ public class FinishActivityCallback implements OnDatabaseOperationFinishCallback
     }
 
     @Override
-    public void onOperationFinish(boolean success, String errorMessage) {
+    public void onFinish(boolean success, String errorMessage) {
         if (success) {
             activity.finish();
         } else {

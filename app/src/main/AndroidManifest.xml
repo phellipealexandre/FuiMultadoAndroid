@@ -33,14 +33,7 @@
         </activity>
 
         <receiver
-            android:name=".service.BillsInfoReceiver" />
-
-        <receiver android:name=".service.OnBootStartReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
+            android:name=".service.UpdateBillsReceiver" />
 
         <receiver android:name=".service.OnConnectedToInternetReceiver" >
             <intent-filter>

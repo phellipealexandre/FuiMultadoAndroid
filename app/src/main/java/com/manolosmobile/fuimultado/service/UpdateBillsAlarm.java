@@ -12,7 +12,7 @@ public class UpdateBillsAlarm {
 
     public static void initAlarm(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, BillsInfoReceiver.class);
+        Intent intent = new Intent(context, UpdateBillsReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ALARM_ID, intent, 0);
         alarmManager.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis(), ALARM_REPEATING_TIME, pendingIntent);
     }

@@ -43,7 +43,6 @@ public class CarsListAdapter extends ArrayAdapter<Car> implements AdapterView.On
         }
 
         Car car = getItem(position);
-
         viewHolder.txtCarBills.setText(String.format("%d multas", car.getNonAssessmentBillsNumber()));
         viewHolder.txtCarAssessments.setText(String.format("%d autuações", car.getAssessmentsNumber()));
         viewHolder.txtCarPlate.setText(String.format("Placa: %s", car.getPlate()));

@@ -7,9 +7,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by phellipe on 4/21/16.
- */
 @DatabaseTable
 public class Car implements Serializable {
 

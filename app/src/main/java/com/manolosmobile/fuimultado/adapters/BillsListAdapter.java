@@ -16,7 +16,6 @@ import java.util.List;
 
 public class BillsListAdapter extends ArrayAdapter<Bill> {
 
-
     private final int COLOR_LIGHT_YELLOW = 0xFFFFFFE6;
     private final int COLOR_LIGHT_RED = 0xFFFFE6E6;
 

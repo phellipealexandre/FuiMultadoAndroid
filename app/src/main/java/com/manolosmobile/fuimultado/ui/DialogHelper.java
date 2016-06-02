@@ -10,9 +10,6 @@ import com.manolosmobile.fuimultado.R;
 
 import java.util.List;
 
-/**
- * Created by phellipe on 4/21/16.
- */
 public class DialogHelper {
 
     private static MaterialDialog currentDialog = null;
